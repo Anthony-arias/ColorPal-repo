@@ -4,16 +4,19 @@ import styled from "styled-components";
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random";
-var XMLParser = require("react-xml-parser");
+
+var XMLParser = require('react-xml-parser');
+
 
 export default () => {
-  let [colors, setColors] = useState([]);
+    let [colors, setColors] = useState([])
 
   useEffect(() => {
-    axios.get(proxyurl + url).then((response) => {
-      let obj = new XMLParser().parseFromString(response.data);
-      setColors((colors = obj.children[0].children[9].children));
-      console.log(colors);
+      axios.get(proxyurl + url).then((response) => {
+          let obj = new XMLParser().parseFromString(response.data);
+          setColors(colors = obj.children[0].children[9].children);
+          console.log(colors);
+
     });
   }, []);
 
