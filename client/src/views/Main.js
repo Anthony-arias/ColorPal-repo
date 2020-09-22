@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Palette from "./Palette";
 
 export default () => {
   const Header = styled.header`
@@ -12,10 +13,6 @@ export default () => {
     padding: 40px 0 25px 0;
     justify-content: center;
     box-shadow: 0 1px 8px #a0acad;
-  `;
-
-  const Container = styled.div`
-    width: 100%;
   `;
 
   const Button = styled.button`
@@ -31,20 +28,6 @@ export default () => {
     font-size: 16px;
   `;
 
-  const Column = styled.div`
-    height: 1000px;
-    width: 20%;
-    background-color: #f7af9d;
-    // background-color: #ff6b6c;
-  `;
-
-  //   const Label = styled.p`
-  //     font-family: Verdana, Geneva, Tahoma, sans-serif;
-  //     position: fixed;
-  //     top: 500px;
-  //     align-self: center;
-  //   `;
-
   const onClick = (e) => {
     console.log("button clicked");
   };
@@ -54,9 +37,7 @@ export default () => {
       <Header>
         <Button onClick={onClick}>GENERATE</Button>
       </Header>
-      <Container>
-        <Column></Column>
-      </Container>
+      <Palette />
     </div>
   );
 };
