@@ -14,7 +14,7 @@ export default () => {
     width: 100%;
     height: 70px;
 
-    background-color: #f5f1e3;
+    background-color: #ffffff;
 
     padding: 40px 0 25px 0;
     justify-content: center;
