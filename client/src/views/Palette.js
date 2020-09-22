@@ -4,7 +4,7 @@ import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random";
 
-//git hub push from Anthony git commit
+//git push to anthony branch from remote
 export default () => {
   /*let [colorOne, setColorOne] = useState({});
   let [colorTwo, setColorTwo] = useState({});
