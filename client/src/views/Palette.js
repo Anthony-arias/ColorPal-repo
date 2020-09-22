@@ -3,18 +3,17 @@ import { navigate } from "@reach/router";
 import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random";
+var XMLParser = require('react-xml-parser');
 
-//git push to anthony branch from remote
+
 export default () => {
-  /*let [colorOne, setColorOne] = useState({});
-  let [colorTwo, setColorTwo] = useState({});
-  let [colorThree, setColorThree] = useState({});
-  let [colorFour, setColorFour] = useState({});
-  let [colorFive, setColorFive] = useState({});*/
+    let [colors, setColors] = useState([])
 
   useEffect(() => {
-    axios.get(proxyurl + url).then((response) => {
-      console.log(response.data);
+      axios.get(proxyurl + url).then((response) => {
+          let obj = new XMLParser().parseFromString(response.data);
+          setColors(colors = obj.children[0].children[9].children);
+          console.log(colors);
     });
   }, []);
 
