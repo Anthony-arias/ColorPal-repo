@@ -3,6 +3,8 @@ import { navigate } from "@reach/router";
 import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random";
+
+//git hub push from Anthony
 export default () => {
   /*let [colorOne, setColorOne] = useState({});
   let [colorTwo, setColorTwo] = useState({});
