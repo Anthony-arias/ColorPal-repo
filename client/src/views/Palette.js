@@ -51,7 +51,7 @@ export default (props) => {
 
   const Column = styled.div`
     display: inline-block;
-    height: 550px;
+    height: 580px;
     width: 20%;
   `;
 
