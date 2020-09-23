@@ -44,7 +44,7 @@ export default () => {
       <Header>
         <Button onClick={onClick}>GENERATE</Button>
       </Header>
-      <Palette generate={generate} />
+      {/* <Palette generate={generate} /> */}
     </div>
   );
 };

@@ -52,8 +52,11 @@ export default (props) => {
   const Label = styled.p`
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: fixed;
-    top: 500px;
-    align-self: center;
+    top: 300px;
+    justify-self: center;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 8px;
   `;
 
   // const colorButton = styled.button`
@@ -80,7 +83,6 @@ export default (props) => {
               onMouseLeave={() => setIsShownOne(false)}
               style={{ backgroundColor: "#" + currentColors[0] }}
             >
-              <h1>Testing H1</h1>
               {isShownOne && <Label>#{currentColors[0]}</Label>}
             </Column>
             <Column
