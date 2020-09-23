@@ -16,21 +16,21 @@ export default (props) => {
   const [isShownThree, setIsShownThree] = useState(false);
   const [isShownFour, setIsShownFour] = useState(false);
   const [isShownFive, setIsShownFive] = useState(false);
+  const [className, setClassName] = useState("Column-container");
 
   let [lockedColors, setLockedColors] = useState([]);
 
   const lockColorHandler = (index) => {
     lockedColors[index] = currentColors[index];
-  };
+    };
 
   // the api is pretty slow, nothing to do on our part
-  useEffect(() => {
-    console.log("in useEffect function");
+    useEffect(() => {
     axios.get(proxyurl + url).then((response) => {
-      console.log("calling api");
       setCurrentColors((currentColors = response.data[0].colors));
-      console.log(response.data[0].colors);
-      setLoaded(true);
+        //console.log(response.data[0].colors);
+        setLoaded(true);
+        setClassName("Column-container");
     });
   }, [props.generate]);
 
@@ -65,11 +65,9 @@ export default (props) => {
     padding: 8px;
   `;
 
-  //used position:fixed to keep the button from pushing out the columns
-  // feel free to change or style how you want as long as the...
-  // onClick fucntion stays the same
+
+  //removing the position:fixed will fix the weird button animation
   const LockButton = styled.button`
-    position: fixed;
     background: rgba(255, 255, 255, 0.3);
     position: fixed;
     top: 500px;
@@ -81,6 +79,7 @@ export default (props) => {
     height: 20px;
     font-family: sans-serif;
   `;
+
 
   // const colorButton = styled.button`
   //   background: rgba(255, 255, 255, 0.3);
@@ -96,91 +95,99 @@ export default (props) => {
   // `;
   /* styles end */
 
+
+/**/
   return (
-    <div>
-      <Container>
-        <FadeIn delay="180">
+      <div>
+          
           {loaded && (
-            <div>
-              {setUpLocked()}
-              <Column
-                onMouseEnter={() => setIsShownOne(true)}
-                onMouseLeave={() => setIsShownOne(false)}
-                style={{ backgroundColor: "#" + currentColors[0] }}
-              >
-                <LockButton
-                  onClick={() => {
-                    lockColorHandler(0);
-                  }}
-                >
-                  lock
+          <div >
+                  {setUpLocked()}
+                  
+                  
+                  <div id={className} onAnimationStart={() => console.log("animation started")}
+                      onAnimationEnd={() => { console.log("animation ended"); setClassName("") }}>
+                      
+                          
+                      <Column
+                          onMouseEnter={() => setIsShownOne(true)}
+                          onMouseLeave={() => setIsShownOne(false)}
+                          style={{ backgroundColor: "#" + currentColors[0] }}
+                      >
+                          <LockButton
+                              onClick={() => {
+                                  lockColorHandler(0);
+                              }}
+                          >
+                              lock
                 </LockButton>
-                {isShownOne && <Label>#{currentColors[0]}</Label>}
-              </Column>
-              <Column
-                onMouseEnter={() => setIsShownTwo(true)}
-                onMouseLeave={() => setIsShownTwo(false)}
-                style={{ backgroundColor: "#" + currentColors[1] }}
-              >
-                <LockButton
-                  onClick={() => {
-                    lockColorHandler(1);
-                  }}
-                >
-                  Testing lock Button
-                </LockButton>
-
-                {isShownTwo && <Label>#{currentColors[1]}</Label>}
-              </Column>
-              <Column
-                onMouseEnter={() => setIsShownThree(true)}
-                onMouseLeave={() => setIsShownThree(false)}
-                style={{ backgroundColor: "#" + currentColors[2] }}
-              >
-                <LockButton
-                  onClick={() => {
-                    lockColorHandler(2);
-                  }}
-                >
-                  Testing lock Button
+                          {isShownOne && <Label>#{currentColors[0]}</Label>}
+                      </Column>
+                      <Column
+                          onMouseEnter={() => setIsShownTwo(true)}
+                          onMouseLeave={() => setIsShownTwo(false)}
+                          style={{ backgroundColor: "#" + currentColors[1] }}
+                      >
+                          <LockButton
+                              onClick={() => {
+                                  lockColorHandler(1);
+                              }}
+                          >
+                              Testing lock Button
                 </LockButton>
 
-                {isShownThree && <Label>#{currentColors[2]}</Label>}
-              </Column>
-              <Column
-                onMouseEnter={() => setIsShownFour(true)}
-                onMouseLeave={() => setIsShownFour(false)}
-                style={{ backgroundColor: "#" + currentColors[3] }}
-              >
-                <LockButton
-                  onClick={() => {
-                    lockColorHandler(3);
-                  }}
-                >
-                  Testing lock Button
+                          {isShownTwo && <Label>#{currentColors[1]}</Label>}
+                      </Column>
+                      <Column
+                          onMouseEnter={() => setIsShownThree(true)}
+                          onMouseLeave={() => setIsShownThree(false)}
+                          style={{ backgroundColor: "#" + currentColors[2] }}
+                      >
+                          <LockButton
+                              onClick={() => {
+                                  lockColorHandler(2);
+                              }}
+                          >
+                              Testing lock Button
                 </LockButton>
 
-                {isShownFour && <Label>#{currentColors[3]}</Label>}
-              </Column>
-              <Column
-                onMouseEnter={() => setIsShownFive(true)}
-                onMouseLeave={() => setIsShownFive(false)}
-                style={{ backgroundColor: "#" + currentColors[4] }}
-              >
-                <LockButton
-                  onClick={() => {
-                    lockColorHandler(4);
-                  }}
-                >
-                  Testing lock Button
+                          {isShownThree && <Label>#{currentColors[2]}</Label>}
+                      </Column>
+                      <Column
+                          onMouseEnter={() => setIsShownFour(true)}
+                          onMouseLeave={() => setIsShownFour(false)}
+                          style={{ backgroundColor: "#" + currentColors[3] }}
+                      >
+                          <LockButton
+                              onClick={() => {
+                                  lockColorHandler(3);
+                              }}
+                          >
+                              Testing lock Button
                 </LockButton>
 
-                {isShownFive && <Label>#{currentColors[4]}</Label>}
-              </Column>
-            </div>
+                          {isShownFour && <Label>#{currentColors[3]}</Label>}
+                      </Column>
+                      <Column
+                          onMouseEnter={() => setIsShownFive(true)}
+                          onMouseLeave={() => setIsShownFive(false)}
+                          style={{ backgroundColor: "#" + currentColors[4] }}
+                      >
+                          <LockButton
+                              onClick={() => {
+                                  lockColorHandler(4);
+                              }}
+                          >
+                              Testing lock Button
+                </LockButton>
+
+                          {isShownFive && <Label>#{currentColors[4]}</Label>}
+                      </Column>
+                      
+                  </div>
+              
+              </div>
           )}
-        </FadeIn>
-      </Container>
     </div>
   );
 };

@@ -7,7 +7,7 @@ export default () => {
   //component will cause useEffect to fire again.
   //not sure if this is the best way to go about it, but it works.
   //also the api is pretty slow on it's own so give it some time after clicking the button
-  const [generate, setGenerate] = useState(false);
+    const [generate, setGenerate] = useState(false);
 
   //removed position: fixed; to stop other elements from clipping into the header
   const Header = styled.header`
@@ -34,7 +34,7 @@ export default () => {
   `;
 
   const onClick = (e) => {
-    generate ? setGenerate(false) : setGenerate(true);
+      generate ? setGenerate(false) : setGenerate(true);
     console.log("generate button is clicked");
   };
 
@@ -43,7 +43,7 @@ export default () => {
       <Header>
         <Button onClick={onClick}>GENERATE</Button>
       </Header>
-      <Palette generate={generate} />
+          <Palette generate={generate}/>
     </div>
   );
 };
