@@ -19,30 +19,35 @@ export default (props) => {
   let [lockedColors, setLockedColors] = useState([]);
 
   const lockColorHandler = (index) => {
-    //lockedColors[index] = currentColors[index];
-    for (var i in currentColors) {
-      if (lockedColors) {
-        currentColors[i] = lockedColors[i];
-      }
-    }
+    lockedColors[index] = currentColors[index];
   };
 
   // the api is pretty slow, nothing to do on our part
   useEffect(() => {
+    console.log("in useEffect function");
     axios.get(proxyurl + url).then((response) => {
+      console.log("calling api");
       setCurrentColors((currentColors = response.data[0].colors));
       console.log(response.data[0].colors);
       setLoaded(true);
     });
   }, [props.generate]);
 
+  //if the lockedColors index matches the index of the currentColors array,and there is a value there it will...
+  //replace the value in that index
+  const setUpLocked = () => {
+    for (var i in currentColors) {
+      if (lockedColors[i] && currentColors[i] != "") {
+        currentColors[i] = lockedColors[i];
+      }
+    }
+  };
+
   /* styles start */
   const Container = styled.div`
     width: 100%;
   `;
 
-  //this part of the code will likely fire before the hex values are set...
-  // so setting the background-color from the colors array will likely result in a undefined value.
   const Column = styled.div`
     display: inline-block;
     height: 550px;
@@ -57,6 +62,13 @@ export default (props) => {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 6px;
     padding: 8px;
+  `;
+
+  //used position:fixed to keep the button from pushing out the columns
+  // feel free to change or style how you want as long as the...
+  // onClick fucntion stays the same
+  const LockButton = styled.button`
+    position: fixed;
   `;
 
   // const colorButton = styled.button`
@@ -78,11 +90,19 @@ export default (props) => {
       <Container>
         {loaded && (
           <div>
+            {setUpLocked()}
             <Column
               onMouseEnter={() => setIsShownOne(true)}
               onMouseLeave={() => setIsShownOne(false)}
               style={{ backgroundColor: "#" + currentColors[0] }}
             >
+              <LockButton
+                onClick={() => {
+                  lockColorHandler(0);
+                }}
+              >
+                Testing lock Button
+              </LockButton>
               {isShownOne && <Label>#{currentColors[0]}</Label>}
             </Column>
             <Column
@@ -90,6 +110,14 @@ export default (props) => {
               onMouseLeave={() => setIsShownTwo(false)}
               style={{ backgroundColor: "#" + currentColors[1] }}
             >
+              <LockButton
+                onClick={() => {
+                  lockColorHandler(1);
+                }}
+              >
+                Testing lock Button
+              </LockButton>
+
               {isShownTwo && <Label>#{currentColors[1]}</Label>}
             </Column>
             <Column
@@ -97,6 +125,14 @@ export default (props) => {
               onMouseLeave={() => setIsShownThree(false)}
               style={{ backgroundColor: "#" + currentColors[2] }}
             >
+              <LockButton
+                onClick={() => {
+                  lockColorHandler(2);
+                }}
+              >
+                Testing lock Button
+              </LockButton>
+
               {isShownThree && <Label>#{currentColors[2]}</Label>}
             </Column>
             <Column
@@ -104,6 +140,14 @@ export default (props) => {
               onMouseLeave={() => setIsShownFour(false)}
               style={{ backgroundColor: "#" + currentColors[3] }}
             >
+              <LockButton
+                onClick={() => {
+                  lockColorHandler(3);
+                }}
+              >
+                Testing lock Button
+              </LockButton>
+
               {isShownFour && <Label>#{currentColors[3]}</Label>}
             </Column>
             <Column
@@ -111,6 +155,14 @@ export default (props) => {
               onMouseLeave={() => setIsShownFive(false)}
               style={{ backgroundColor: "#" + currentColors[4] }}
             >
+              <LockButton
+                onClick={() => {
+                  lockColorHandler(4);
+                }}
+              >
+                Testing lock Button
+              </LockButton>
+
               {isShownFive && <Label>#{currentColors[4]}</Label>}
             </Column>
           </div>
