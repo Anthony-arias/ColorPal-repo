@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import update from 'react-addons-update';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random/?format=json";
@@ -10,187 +11,202 @@ export default (props) => {
   let [currentColors, setCurrentColors] = useState([]);
   let [loaded, setLoaded] = useState(false);
 
-  const [isShownOne, setIsShownOne] = useState(false);
-  const [isShownTwo, setIsShownTwo] = useState(false);
-  const [isShownThree, setIsShownThree] = useState(false);
-  const [isShownFour, setIsShownFour] = useState(false);
-  const [isShownFive, setIsShownFive] = useState(false);
-  const [className, setClassName] = useState("Column-container");
-  const [lockStatus, setLockStatus] = useState("unlocked");
+  const [isHiddenOne, setIsHiddenOne] = useState(true);
+    const [isHiddenTwo, setIsHiddenTwo] = useState(true);
+    const [isHiddenThree, setIsHiddentThree] = useState(true);
+    const [isHiddenFour, setIsHiddenFour] = useState(true);
+    const [isHiddenFive, setIsHiddenFive] = useState(true);
 
   let [lockedColors, setLockedColors] = useState([]);
+  const [colorsClassName, setColorsClassName] = useState([]);
 
   const lockColorHandler = (index) => {
-    lockedColors[index] = currentColors[index];
-    if (lockStatus === "unlocked") {
-      setLockStatus("locked");
-    } else {
-      setLockStatus("unlocked");
-    }
+    //lockedColors[index] = currentColors[index];
+    if(lockedColors[index]) lockedColors[index] = undefined;
+    else lockedColors[index] = currentColors[index];
   };
 
+  const setUpColumnAnimation = () => {
+      setColorsClassName(update(colorsClassName, {
+            [0]: {
+              $apply: function () {
+                    if (lockedColors[0]) return "Column-style";
+                    else return "Column-style Column-animate";
+              }
+            },
+            [1]: {
+                $apply: function () {
+                    if (lockedColors[1]) return "Column-style";
+                    else return "Column-style Column-animate";
+              }
+            },
+            [2]: {
+                $apply: function () {
+                    if (lockedColors[2]) return "Column-style";
+                    else return "Column-style Column-animate";
+              }
+            },
+            [3]: {
+                $apply: function () {
+                    if (lockedColors[3]) return "Column-style";
+                    else return "Column-style Column-animate";
+                }
+            },
+            [4]: {
+                $apply: function () {
+                    if (lockedColors[4]) return "Column-style";
+                    else return "Column-style Column-animate";
+                }
+            },
+        }))
+       
+    }
+  const mouseEnterfunction = useCallback((event)=> {event(false)});
+ 
   // the api is pretty slow, nothing to do on our part
   useEffect(() => {
     axios.get(proxyurl + url).then((response) => {
       setCurrentColors((currentColors = response.data[0].colors));
-      //console.log(response.data[0].colors);
+      setUpColumnAnimation();
       setLoaded(true);
-      setClassName("Column-container");
     });
   }, [props.generate]);
 
-  //if the lockedColors index matches the index of the currentColors array,and there is a value there it will...
-  //replace the value in that index
   const setUpLocked = () => {
     for (var i in currentColors) {
-      if (lockedColors[i] && currentColors[i] != "") {
-        currentColors[i] = lockedColors[i];
-      }
+        if (lockedColors[i] && currentColors[i] != "") {
+            currentColors[i] = lockedColors[i];
+        }
     }
   };
-
-  /* styles start */
-
-  const Column = styled.div`
-    display: inline-block;
-    height: 580px;
-    width: 20%;
-  `;
-
-  const Label = styled.p`
-    font-family: "Varela Round";
-    position: fixed;
-    top: 530px;
-    margin-left: 80px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 14px;
-  `;
-
-  //removing the position:fixed will fix the weird button animation
-  const LockButton = styled.button`
-    background: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    margin-top: 20px;
-    border-radius: 6px;
-    border: 1px solid white;
-    color: white;
-    text-shadow: 1px 1px black;
-    height: 20px;
-    font-family: "Varela Round";
-  `;
-
-  /* styles end */
-
-  /**/
+  //moved styling to app.css
   return (
     <div>
       {loaded && (
         <div>
           {setUpLocked()}
+          
+            <div className={colorsClassName[0]}
+              onAnimationStart={(e) => 
+              { console.log("animation start"); e.target.removeEventListener('mouseenter', () => mouseEnterfunction(setIsHiddenOne))}}
 
-          <div
-            className={className}
-            onAnimationStart={() => console.log("animation started")}
-            onAnimationEnd={() => {
-              console.log("animation ended");
-              setClassName("");
+              onAnimationEnd={(e) => {
+                  setColorsClassName(update(colorsClassName, {
+                      [0]: { $set: "Column-style" }
+                  }));
+                  e.target.addEventListener('mouseenter',() => mouseEnterfunction(setIsHiddenOne));
             }}
-          >
-            <Column
-              id={lockStatus}
-              onMouseEnter={() => setIsShownOne(true)}
-              onMouseLeave={() => setIsShownOne(false)}
+              onMouseLeave={() => setIsHiddenOne(true)}
               style={{ backgroundColor: "#" + currentColors[0] }}
             >
-              {isShownOne && (
-                <div>
-                  <Label>#{currentColors[0]}</Label>
-                  <LockButton
+              
+                <div hidden={isHiddenOne}>
+                  <p className="label">#{currentColors[0]}</p>
+                  <button className="LockButton"
                     onClick={() => {
                       lockColorHandler(0);
                     }}
                   >
                     lock
-                  </LockButton>
+                  </button>
                 </div>
-              )}
-            </Column>
-            <Column
-              onMouseEnter={() => setIsShownTwo(true)}
-              onMouseLeave={() => setIsShownTwo(false)}
+              
+            </div>
+            <div className={colorsClassName[1]}
+              onAnimationEnd={(e) => {
+                  setColorsClassName(update(colorsClassName, {
+                      [1]: { $set: "Column-style" }
+                  }))
+                  e.target.addEventListener('mouseenter', () => setIsHiddenTwo(false));
+            }}
+              onMouseLeave={() => setIsHiddenTwo(true)}
               style={{ backgroundColor: "#" + currentColors[1] }}
             >
-              {isShownTwo && (
-                <div>
-                  <Label>#{currentColors[1]}</Label>
-                  <LockButton
+             
+                <div hidden={isHiddenTwo}>
+                  <p className="label">#{currentColors[1]}</p>
+                  <button className="LockButton"
                     onClick={() => {
                       lockColorHandler(1);
                     }}
                   >
                     lock
-                  </LockButton>
+                  </button>
                 </div>
-              )}
-            </Column>
-            <Column
-              onMouseEnter={() => setIsShownThree(true)}
-              onMouseLeave={() => setIsShownThree(false)}
+              
+            </div>
+            <div className={colorsClassName[2]}
+              onAnimationEnd={(e) => {
+                  setColorsClassName(update(colorsClassName, {
+                      [2]: { $set: "Column-style" }
+                  }))
+                  e.target.addEventListener('mouseenter', () => setIsHiddentThree(false));
+            }}
+              onMouseLeave={() => setIsHiddentThree(true)}
               style={{ backgroundColor: "#" + currentColors[2] }}
             >
-              {isShownThree && (
-                <div>
-                  <Label>#{currentColors[2]}</Label>
-                  <LockButton
+              
+                <div hidden={isHiddenThree}>
+                  <p className="label">#{currentColors[2]}</p>
+                  <button className="LockButton"
                     onClick={() => {
                       lockColorHandler(2);
                     }}
                   >
                     lock
-                  </LockButton>
+                  </button>
                 </div>
-              )}
-            </Column>
-            <Column
-              onMouseEnter={() => setIsShownFour(true)}
-              onMouseLeave={() => setIsShownFour(false)}
+              
+            </div>
+            <div className={colorsClassName[3]}
+              onAnimationEnd={(e) => {
+                  setColorsClassName(update(colorsClassName, {
+                      [3]: { $set: "Column-style" }
+                  }))
+                  e.target.addEventListener('mouseenter', () => setIsHiddenFour(false));
+            }}
+              onMouseLeave={() => setIsHiddenFour(true)}
               style={{ backgroundColor: "#" + currentColors[3] }}
             >
-              {isShownFour && (
-                <div>
-                  <Label>#{currentColors[3]}</Label>
-                  <LockButton
+              
+                <div hidden={isHiddenFour}>
+                  <p className="label">#{currentColors[3]}</p>
+                  <button className="LockButton"
                     onClick={() => {
                       lockColorHandler(3);
                     }}
                   >
                     lock
-                  </LockButton>
+                  </button>
                 </div>
-              )}
-            </Column>
-            <Column
-              onMouseEnter={() => setIsShownFive(true)}
-              onMouseLeave={() => setIsShownFive(false)}
+              
+            </div>
+            <div className={colorsClassName[4]}
+              onAnimationEnd={(e) => {
+                  setColorsClassName(update(colorsClassName, {
+                      [4]: { $set: "Column-style" }
+                  }))
+                  e.target.addEventListener('mouseenter', () => setIsHiddenFive(false));
+            }}
+              onMouseLeave={() => setIsHiddenFive(true)}
               style={{ backgroundColor: "#" + currentColors[4] }}
             >
-              {isShownFive && (
-                <div>
-                  <Label>#{currentColors[4]}</Label>
-                  <LockButton
+              
+                <div hidden={isHiddenFive}>
+                  <p className="label">#{currentColors[4]}</p>
+                  <button className="LockButton"
                     onClick={() => {
                       lockColorHandler(4);
                     }}
                   >
                     lock
-                  </LockButton>
+                  </button>
                 </div>
-              )}
-            </Column>
-          </div>
+              
+            </div>
+ 
         </div>
+        
       )}
     </div>
   );
