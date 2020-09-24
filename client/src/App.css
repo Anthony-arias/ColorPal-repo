@@ -7,39 +7,40 @@
 */
 
 .label {
-    font-family: "Varela Round";
-    position: absolute;
-    top: 530px;
-    margin-left: 80px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 14px;
+  font-family: "Varela Round";
+  position: absolute;
+  top: 530px;
+  margin-left: 80px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
 }
 
 .LockButton {
-    background: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    margin-top: 20px;
-    border-radius: 6px;
-    border: 1px solid white;
-    color: white;
-    text-shadow: 1px 1px black;
-    height: 20px;
-    font-family: "Varela Round";
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  margin-top: 20px;
+  margin-left: -30px;
+  border-radius: 6px;
+  border: 1px solid white;
+  color: white;
+  text-shadow: 1px 1px black;
+  height: 30px;
+  font-family: "Varela Round";
 }
 
 .Column-style {
-    display: inline-block;
-    height: 580px;
-    width: 20%;
+  display: inline-block;
+  height: 580px;
+  width: 20%;
 }
 
 .Column-animate {
-    -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadein 1.5s; /* Firefox < 16 */
-    -o-animation: fadein 1.5s; /* Opera < 12.1 */
-    animation: fadein 1.5s;
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  -o-animation: fadein 1.5s; /* Opera < 12.1 */
+  animation: fadein 1.5s;
 }
 
 /*Play around with this setting to get the desired animation*/
@@ -57,15 +58,15 @@
 
 /* header themes start */
 #light {
-    background-color: #ffffff;
-    color: #404e5c;
-    box-shadow: 0 1px 8px #a0acad;
+  background-color: #ffffff;
+  color: #404e5c;
+  box-shadow: 0 1px 8px #a0acad;
 }
 
 #dark {
   background-color: #31393c;
   color: #feefe5;
-  box-shadow: 0 1px 8px #feefe5;
+  box-shadow: 0 1px 8px #747c92;
 }
 
 /* button themes start */
@@ -78,6 +79,9 @@
   border: none;
   color: #fcf7f8;
 }
+.b-light:hover {
+  color: #242331;
+}
 
 .b-dark {
   background: rgba(255, 255, 255, 0.6);
@@ -85,6 +89,27 @@
   font-family: "Varela Round";
   border: none;
   color: #242331;
+}
+.b-dark:hover {
+  color: white;
+}
+
+#logreg {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  font-size: 12px;
+  padding-bottom: 20px;
+  height: 20px;
+}
+
+#mode {
+  position: absolute;
+  top: 35px;
+  right: 8px;
+  font-size: 12px;
+  height: 20px;
+  padding-bottom: 20px;
 }
 /* button themes end */
 
