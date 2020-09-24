@@ -60,7 +60,7 @@ export default () => {
           new palette
         </GenButton>
         <ModeButton className={buttonMode} onClick={toggleMode}>
-          mode
+          {String.fromCharCode(9728)}
         </ModeButton>
       </Header>
       <Palette generate={generate} />
