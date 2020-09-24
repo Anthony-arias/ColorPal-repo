@@ -12,6 +12,19 @@
   animation: fadein 1.5s;
 }
 
+/*Play around with this setting to get the desired animation*/
+@keyframes fadein {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+
+  to {
+    transition: transform 500ms linear;
+    opacity: 1;
+  }
+}
+
 /* header themes start */
 #light {
   background-color: #ffffff;
@@ -43,20 +56,85 @@
   border: none;
   color: #242331;
 }
-
 /* button themes end */
 
-/*Play around with this setting to get the desired animation*/
-@keyframes fadein {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
+/* user form styles start */
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap");
 
-  to {
-    transition: transform 500ms linear;
-    opacity: 1;
-  }
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+#home {
+  background: rgba(255, 255, 255, 0.6);
+  font-family: "Varela Round";
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 2px 6px;
+  font-size: 13px;
+  color: #242331;
+}
+#home:hover {
+  color: white;
+}
+
+#user-page {
+  background-image: url("https://www.publicdomainpictures.net/pictures/280000/velka/gradient-colors-blur-background.jpg");
+  background-size: cover;
+}
+
+#regtitle {
+  font-family: "Inconsolata", monospace;
+  color: ghostwhite;
+  text-shadow: 2px 1px #313638;
+  font-size: 55px;
+  padding-top: 30px;
+  margin-left: -710px;
+}
+
+#regform {
+  margin: -22px 0px 0px 150px;
+  background-color: #e8e8e8;
+  width: 35%;
+  padding: 35px 20px;
+  color: #313638;
+  border-radius: 24px;
+  box-shadow: 0px 0px 24px #313638;
+}
+
+#logtitle {
+  font-family: "Inconsolata", monospace;
+  color: ghostwhite;
+  text-shadow: 2px 1px #313638;
+  font-size: 55px;
+  position: absolute;
+  top: 138px;
+  left: 738px;
+}
+
+#logform {
+  margin: -430px 150px 0px 720px;
+  background-color: #e8e8e8;
+  width: 35%;
+  padding: 35px 20px;
+  color: #313638;
+  border-radius: 24px;
+  box-shadow: 0px 0px 24px #313638;
+}
+
+.form {
+  margin: auto;
+  font-family: "Varela Round";
+  width: 85%;
+}
+
+#bump {
+  padding-bottom: 200px;
+  font-size: 2px;
 }
 
 /*Don't worry about this functions underneath, unless changing the values in the above function 
