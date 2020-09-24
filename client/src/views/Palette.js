@@ -16,17 +16,11 @@ export default (props) => {
   const [isShownFour, setIsShownFour] = useState(false);
   const [isShownFive, setIsShownFive] = useState(false);
   const [className, setClassName] = useState("Column-container");
-  const [lockStatus, setLockStatus] = useState("unlocked");
 
   let [lockedColors, setLockedColors] = useState([]);
 
   const lockColorHandler = (index) => {
     lockedColors[index] = currentColors[index];
-    if (lockStatus === "unlocked") {
-      setLockStatus("locked");
-    } else {
-      setLockStatus("unlocked");
-    }
   };
 
   // the api is pretty slow, nothing to do on our part
@@ -99,7 +93,6 @@ export default (props) => {
             }}
           >
             <Column
-              id={lockStatus}
               onMouseEnter={() => setIsShownOne(true)}
               onMouseLeave={() => setIsShownOne(false)}
               style={{ backgroundColor: "#" + currentColors[0] }}
