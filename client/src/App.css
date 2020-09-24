@@ -5,11 +5,41 @@
     until you get what you want and copy the setting into the other browsers.
     (just whatever goes after : )
 */
-.Column-container {
-  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1.5s; /* Firefox < 16 */
-  -o-animation: fadein 1.5s; /* Opera < 12.1 */
-  animation: fadein 1.5s;
+
+.label {
+    font-family: "Varela Round";
+    position: absolute;
+    top: 530px;
+    margin-left: 80px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.LockButton {
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 1px solid white;
+    color: white;
+    text-shadow: 1px 1px black;
+    height: 20px;
+    font-family: "Varela Round";
+}
+
+.Column-style {
+    display: inline-block;
+    height: 580px;
+    width: 20%;
+}
+
+.Column-animate {
+    -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1.5s; /* Firefox < 16 */
+    -o-animation: fadein 1.5s; /* Opera < 12.1 */
+    animation: fadein 1.5s;
 }
 
 /*Play around with this setting to get the desired animation*/
@@ -27,9 +57,9 @@
 
 /* header themes start */
 #light {
-  background-color: #ffffff;
-  color: #404e5c;
-  box-shadow: 0 1px 8px #a0acad;
+    background-color: #ffffff;
+    color: #404e5c;
+    box-shadow: 0 1px 8px #a0acad;
 }
 
 #dark {
