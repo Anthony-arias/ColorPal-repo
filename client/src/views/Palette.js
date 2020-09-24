@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import HoverDetails from "../components/HoverDetails";
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "http://www.colourlovers.com/api/palettes/random/?format=json";
@@ -23,7 +22,7 @@ export default (props) => {
 
   const lockColorHandler = (index) => {
     lockedColors[index] = currentColors[index];
-    if (lockStatus == "unlocked") {
+    if (lockStatus === "unlocked") {
       setLockStatus("locked");
     } else {
       setLockStatus("unlocked");
@@ -59,7 +58,7 @@ export default (props) => {
   `;
 
   const Label = styled.p`
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Varela Round";
     position: fixed;
     top: 530px;
     margin-left: 80px;
@@ -79,7 +78,7 @@ export default (props) => {
     color: white;
     text-shadow: 1px 1px black;
     height: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Varela Round";
   `;
 
   /* styles end */

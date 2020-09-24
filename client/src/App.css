@@ -12,6 +12,40 @@
   animation: fadein 1.5s;
 }
 
+/* header themes start */
+#light {
+  background-color: #ffffff;
+  color: #404e5c;
+  box-shadow: 0 1px 8px #a0acad;
+}
+
+#dark {
+  background-color: #2f3e46;
+  color: #feefe5;
+  box-shadow: 0 1px 8px #feefe5;
+}
+
+/* button themes start */
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+
+.b-light {
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 0px 2.5px grey;
+  font-family: "Varela Round";
+  border: none;
+  color: #fcf7f8;
+}
+
+.b-dark {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 1px 0px 2.5px white;
+  font-family: "Varela Round";
+  border: none;
+  color: #242331;
+}
+
+/* button themes end */
+
 /*Play around with this setting to get the desired animation*/
 @keyframes fadein {
   from {
