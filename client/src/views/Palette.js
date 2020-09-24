@@ -11,16 +11,19 @@ export default (props) => {
   let [currentColors, setCurrentColors] = useState([]);
   let [loaded, setLoaded] = useState(false);
 
+
   const [isHiddenOne, setIsHiddenOne] = useState(true);
     const [isHiddenTwo, setIsHiddenTwo] = useState(true);
     const [isHiddenThree, setIsHiddentThree] = useState(true);
     const [isHiddenFour, setIsHiddenFour] = useState(true);
     const [isHiddenFive, setIsHiddenFive] = useState(true);
 
+
   let [lockedColors, setLockedColors] = useState([]);
   const [colorsClassName, setColorsClassName] = useState([]);
 
   const lockColorHandler = (index) => {
+
     //lockedColors[index] = currentColors[index];
     if(lockedColors[index]) lockedColors[index] = undefined;
     else lockedColors[index] = currentColors[index];
