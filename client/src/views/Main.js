@@ -16,12 +16,12 @@ export default () => {
   const Header = styled.header`
     width: 100%;
     height: 100px;
-    padding: 40px 0 25px 0;
+    padding: 40px 0 30px 0;
     justify-content: center;
   `;
 
   const Button = styled.button`
-    margin-top: 10px;
+    margin-top: 5px;
     border-radius: 6px;
     margin-left: 20px;
     padding: 0.25em 1em;
@@ -29,16 +29,6 @@ export default () => {
     font-weight: 525;
     font-size: 16px;
   `;
-
-  // const ModeButton = styled.button`
-  //   margin-top: 10px;
-  //   margin-left: 20px;
-  //   border-radius: 6px;
-  //   padding: 0.25em 1em;
-  //   height: 40px;
-  //   font-weight: 525;
-  //   font-size: 16px;
-  // `;
 
   const onClick = (e) => {
     generate ? setGenerate(false) : setGenerate(true);
@@ -61,11 +51,19 @@ export default () => {
         <Button className={buttonMode} onClick={onClick}>
           new palette
         </Button>
-        <Button className={buttonMode} onClick={toggleMode}>
+        <Button className={buttonMode} onClick={onClick}>
+          save palette
+        </Button>
+        <Button className={buttonMode} onClick={onClick}>
+          favorites
+        </Button>
+        <Button className={buttonMode} id="mode" onClick={toggleMode}>
           {String.fromCharCode(9728)}
         </Button>
         <Link to="/register">
-          <Button className={buttonMode}>Login/Register</Button>
+          <Button className={buttonMode} id="logreg">
+            Login/Register
+          </Button>
         </Link>
       </Header>
       <Palette generate={generate} />
