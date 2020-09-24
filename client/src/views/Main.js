@@ -30,16 +30,6 @@ export default () => {
     font-size: 16px;
   `;
 
-  // const ModeButton = styled.button`
-  //   margin-top: 10px;
-  //   margin-left: 20px;
-  //   border-radius: 6px;
-  //   padding: 0.25em 1em;
-  //   height: 40px;
-  //   font-weight: 525;
-  //   font-size: 16px;
-  // `;
-
   const onClick = (e) => {
     generate ? setGenerate(false) : setGenerate(true);
     console.log("generate button is clicked");

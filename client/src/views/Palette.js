@@ -67,11 +67,12 @@ export default (props) => {
     background: rgba(255, 255, 255, 0.3);
     position: absolute;
     margin-top: 20px;
+    margin-left: -20px;
     border-radius: 6px;
     border: 1px solid white;
     color: white;
     text-shadow: 1px 1px black;
-    height: 20px;
+    height: 30px;
     font-family: "Varela Round";
   `;
 
