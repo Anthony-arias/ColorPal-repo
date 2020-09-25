@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import "../App.css";
 
+
 export default (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,7 +20,7 @@ export default (props) => {
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     console.log("in submit handler");
     axios
@@ -36,6 +37,20 @@ export default (props) => {
       });
   };
 
+  const handleSignin = (e) => {
+    e.preventDefault();
+    console.log("in submit handler");
+    axios
+      .post("http://localhost:8000/api/login", {
+        email: email,
+        password: password,
+      })
+      .then(navigate("/"))
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div id="user-page">
       <Link to="/">
@@ -44,7 +59,7 @@ export default (props) => {
       <h2 id="regtitle">Register</h2>
       <div id="forms">
         <Container id="regform">
-          <Form className="form" onSubmit={handleSubmit}>
+          <Form className="form" onSubmit={handleRegister}>
             <Col>
               <FormGroup>
                 <Label className="labels">First Name</Label>
@@ -99,7 +114,7 @@ export default (props) => {
         {/* log form start */}
         <h2 id="logtitle">Sign In</h2>
         <Container id="logform">
-          <Form className="form" onSubmit={handleSubmit}>
+          <Form className="form" onSubmit={handleSignin}>
             <Col>
               <FormGroup>
                 <Label>Email</Label>

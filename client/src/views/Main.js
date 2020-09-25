@@ -4,10 +4,6 @@ import Palette from "./Palette";
 import { Link } from "@reach/router";
 
 export default () => {
-  //setting a state when the button is clicked and passing that to the palette-
-  //component will cause useEffect to fire again.
-  //not sure if this is the best way to go about it, but it works.
-  //also the api is pretty slow on it's own so give it some time after clicking the button
   const [generate, setGenerate] = useState(false);
   const [mode, setMode] = useState("light");
   const [buttonMode, setButtonMode] = useState("b-light");
@@ -30,10 +26,16 @@ export default () => {
     font-size: 16px;
   `;
 
-  const onClick = (e) => {
+  const handleGenerate = (e) => {
     generate ? setGenerate(false) : setGenerate(true);
     console.log("generate button is clicked");
   };
+
+  const handleSavePalette = (e) => {
+  }
+
+  const handleFavorites = (e) => {
+  }
 
   const toggleMode = (e) => {
     if (mode === "light") {
@@ -48,10 +50,10 @@ export default () => {
   return (
     <div>
       <Header id={mode}>
-        <Button className={buttonMode} onClick={onClick}>
+        <Button className={buttonMode} onClick={handleGenerate}>
           new palette
         </Button>
-        <Button className={buttonMode} onClick={onClick}>
+        <Button className={buttonMode} onClick={handleSavePalette}>
           save palette
         </Button>
         <Link to="/faves">
