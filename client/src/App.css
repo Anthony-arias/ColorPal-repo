@@ -191,6 +191,43 @@ html {
   padding-bottom: 200px;
   font-size: 2px;
 }
+/* user form styles end */
+
+/* favorites page styles start */
+#favetitle {
+  font-family: "Inconsolata", monospace;
+  color: ghostwhite;
+  text-shadow: 0px 0px 4px #313638;
+  font-size: 55px;
+  margin-top: -15px;
+  margin-left: 30px;
+  width: 25%;
+  border-radius: 6px;
+}
+
+#bg-light {
+  background-color: #ffffff;
+  color: #404e5c;
+  height: 1000px;
+  padding-top: 30px;
+}
+
+#bg-dark {
+  background-color: #31393c;
+  color: #feefe5;
+  height: 1000px;
+  padding-top: 30px;
+}
+
+#sw-light {
+  background-color: white;
+  color: #404e5c;
+}
+
+#sw-dark {
+  background-color: #31393c;
+  color: #feefe5;
+}
 
 /*Don't worry about this functions underneath, unless changing the values in the above function 
     does nothing for your browser

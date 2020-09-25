@@ -54,17 +54,18 @@ export default () => {
         <Button className={buttonMode} onClick={onClick}>
           save palette
         </Button>
-        <Button className={buttonMode} onClick={onClick}>
-          favorites
-        </Button>
-        <Button className={buttonMode} id="mode" onClick={toggleMode}>
-          {String.fromCharCode(9728)}
-        </Button>
+        <Link to="/faves">
+          <Button className={buttonMode}>favorites</Button>
+        </Link>
+
         <Link to="/register">
           <Button className={buttonMode} id="logreg">
             Login/Register
           </Button>
         </Link>
+        <Button className={buttonMode} id="mode" onClick={toggleMode}>
+          {String.fromCharCode(9728)}
+        </Button>
       </Header>
       <Palette generate={generate} />
     </div>
