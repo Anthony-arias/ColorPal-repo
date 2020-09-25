@@ -1,11 +1,10 @@
 import React from "react";
-import { Link, navigate } from "@reach/router";
 import { Container } from "reactstrap";
 import styled from "styled-components";
 import "../App.css";
 
 export default (props) => {
-  const { colors } = props;
+  const { colorHex } = props;
   // colors passed via props, then each code applied to the bg color in 'ColorBox'
 
   const ColorWrap = styled.div`
@@ -15,16 +14,15 @@ export default (props) => {
     padding-top: 5px;
     color: #404e5c;
     border-radius: 8px;
-    display: inline-block;
-    margin: 0px 15px 25px 15px;
+    margin: 0px 0px 25px 0px;
   `;
 
   const ColorBox = styled.div`
     margin: auto;
     width: 140px;
     height: 100px;
-    background-color: #f4a5ae;
     border-radius: 8px;
+    display: flex;
   `;
 
   const Label = styled.h3`
@@ -36,8 +34,8 @@ export default (props) => {
   return (
     <Container>
       <ColorWrap>
-        <ColorBox></ColorBox>
-        <Label>#(Hex code here)</Label>
+        <ColorBox style={{ backgroundColor: "#" + colorHex }}></ColorBox>
+        <Label>#{colorHex}</Label>
       </ColorWrap>
     </Container>
   );
