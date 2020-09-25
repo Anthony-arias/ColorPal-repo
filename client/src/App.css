@@ -65,7 +65,7 @@
 
 .Column-style {
   display: inline-block;
-  height: 1900px;
+  height: 1000px;
   width: 20%;
 }
 
@@ -173,6 +173,7 @@ html {
 #user-page {
   background-image: url("https://www.publicdomainpictures.net/pictures/280000/velka/gradient-colors-blur-background.jpg");
   background-size: cover;
+  height: 1100px;
 }
 
 #regtitle {
@@ -248,7 +249,7 @@ html {
 #bg-dark {
   background-color: #31393c;
   color: #feefe5;
-  height: 1000px;
+  height: 1100px;
   padding-top: 30px;
 }
 
