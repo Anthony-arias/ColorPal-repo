@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
 import ColorSwatch from "../components/ColorSwatch";
+import axios from "axios";
 
-export default () => {
+export default (props) => {
+  let currentUser = props.currentUser.userID;
+  let [allUserPalettes, setAllUserPalettes] = useState([])
   const [bgMode, setBgMode] = useState("bg-light");
   const [buttonMode, setButtonMode] = useState("b-light");
   const [swatchMode, setSwatchMode] = useState("sw-light");
+  // add loaded useState
 
-  //removed position: fixed; to stop other elements from clipping into the header
-  //   const Header = styled.header`
-  //     width: 100%;
-  //     height: 100px;
-  //     padding: 40px 0 30px 0;
-  //     justify-content: center;
-  //   `;
+  // allUserPalettes contain an array of objects
+  // one object contains the name of the palette the user entered...
+  // with five of the hex codes labeld hexValue1, hexValue2, ect..
+  // see the browsers console for more info
+    // more info below
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/"+currentUser+"/palettes").then((response) => {
+      allUserPalettes = response.data;
+      console.log(response.data)
+      //console.log(allUserPalettes)
+      //setLoaded(true) here
+    })
+      .catch(error => {console.log(error)})
+  }, []);
 
   const Button = styled.button`
     margin-top: 5px;
@@ -48,7 +59,8 @@ export default () => {
       setSwatchMode("sw-light");
     }
   };
-
+    //use allUserPalettes.map() to get the info to load
+    //like we've done before 
   return (
     <div id={bgMode}>
       <h1 className={buttonMode} id="favetitle">

@@ -18,20 +18,20 @@ export default (props) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPW, setConfirmPW] = useState("");
+  const [confirmPassword, setConfirmPW] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("in submit handler");
+    console.log("in Register");
     axios
       .post("http://localhost:8000/api/register", {
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
-        confirmPassword: confirmPW,
+        confirmPassword: confirmPassword,
       })
-      .then(navigate("/"))
+      .then(response =>{props.handleCurrentUser(response.data);navigate("/")})
       .catch(function (error) {
         console.log(error);
       });
@@ -39,13 +39,13 @@ export default (props) => {
 
   const handleSignin = (e) => {
     e.preventDefault();
-    console.log("in submit handler");
+    console.log("in signin");
     axios
       .post("http://localhost:8000/api/login", {
         email: email,
         password: password,
       })
-      .then(navigate("/"))
+      .then(response =>{props.handleCurrentUser(response.data);navigate("/")})
       .catch(function (error) {
         console.log(error);
       });
@@ -59,7 +59,7 @@ export default (props) => {
       <h2 id="regtitle">Register</h2>
       <div id="forms">
         <Container id="regform">
-          <Form className="form" onSubmit={handleRegister}>
+          <Form className="form" onSubmit={e => handleRegister(e)}>
             <Col>
               <FormGroup>
                 <Label className="labels">First Name</Label>
@@ -114,7 +114,7 @@ export default (props) => {
         {/* log form start */}
         <h2 id="logtitle">Sign In</h2>
         <Container id="logform">
-          <Form className="form" onSubmit={handleSignin}>
+          <Form className="form" onSubmit={e => handleSignin(e)}>
             <Col>
               <FormGroup>
                 <Label>Email</Label>

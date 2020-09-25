@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Palette from "./Palette";
-import { Link } from "@reach/router";
+import { Link, navigate} from "@reach/router";
+import axios from "axios";
 
-export default () => {
+export default (props) => {
   const [generate, setGenerate] = useState(false);
   const [mode, setMode] = useState("light");
   const [buttonMode, setButtonMode] = useState("b-light");
+  const [backGround, setBackGround] = useState("");
+  const [isFormHidden, setIsFormHidden] = useState(true);
+  const [paletteName, setPaletteName] = useState("");
+  let currentPalette = [];
 
-  //removed position: fixed; to stop other elements from clipping into the header
   const Header = styled.header`
     width: 100%;
     height: 100px;
@@ -31,10 +35,35 @@ export default () => {
     console.log("generate button is clicked");
   };
 
-  const handleSavePalette = (e) => {
+  const handleSaveButton = () => {
+    setBackGround("addBlur");
+    setIsFormHidden(false);
   }
 
-  const handleFavorites = (e) => {
+  const handleCancelButton = () =>{
+    setIsFormHidden(true);
+    setBackGround("");
+  }
+
+  const handleCurrentPalette = (palette) => {
+    currentPalette = palette;
+  }
+
+  const handlePaletteSubmition = () => {
+    axios
+      .post("http://localhost:8000/api/palette/new", {
+        paletteName: paletteName,
+        hexValue1: currentPalette[0],
+        hexValue2: currentPalette[1],
+        hexValue3: currentPalette[2],
+        hexValue4: currentPalette[3],
+        hexValue5: currentPalette[4],
+        owner: props.currentUser.userID
+      })
+      .then(handleCancelButton())
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const toggleMode = (e) => {
@@ -49,27 +78,39 @@ export default () => {
 
   return (
     <div>
+      <div hidden={isFormHidden} className="foreGround">
+         <label>Name the Palette:</label> <br/>
+         <input type="text" onChange={e => {setPaletteName(e.target.value)}}></input> <br/>
+         <button className="foreGround-Button" onClick={handleCancelButton}>Cancel</button><button onClick={handlePaletteSubmition} className="foreGround-Button">Save</button>
+      </div>
+       <div className={backGround}>
       <Header id={mode}>
         <Button className={buttonMode} onClick={handleGenerate}>
           new palette
         </Button>
-        <Button className={buttonMode} onClick={handleSavePalette}>
-          save palette
-        </Button>
-        <Link to="/faves">
-          <Button className={buttonMode}>favorites</Button>
-        </Link>
+        
+        {
+           props.currentUser.userID ?
+           <Button className={buttonMode} onClick={handleSaveButton}>save palette</Button>:
+           <Button className={buttonMode} onClick={() => navigate("/register")}>save palette</Button>
+        }
+        {
+           props.currentUser.userID ?<Button className={buttonMode} onClick={() => navigate("/faves")}>favorites</Button>:
+           <Button className={buttonMode} onClick={() => navigate("/register")}>favorites</Button>
+        }
+         {
+            props.currentUser.userID?
+            <Button onClick={props.handleLogout} className={buttonMode} id="logreg">Log Out</Button>:
+            <Button onClick={() => navigate("/register")} className={buttonMode} id="logreg">Login/Register</Button>
+          }
+        
 
-        <Link to="/register">
-          <Button className={buttonMode} id="logreg">
-            Login/Register
-          </Button>
-        </Link>
         <Button className={buttonMode} id="mode" onClick={toggleMode}>
           {String.fromCharCode(9728)}
         </Button>
       </Header>
-      <Palette generate={generate} />
+      <Palette generate={generate} handleCurrentPalette={handleCurrentPalette}/>
+    </div>
     </div>
   );
 };
