@@ -18,8 +18,8 @@
 }
 
 .foreGround {
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
@@ -34,14 +34,14 @@
   z-index: 2;
 }
 
-.foreGround-Button{
-    margin-top: 15px;
-    border-radius: 6px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 0.25em 1em;
-    height: 40px;
-    font-size: 16px;
+.foreGround-Button {
+  margin-top: 15px;
+  border-radius: 6px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0.25em 1em;
+  height: 40px;
+  font-size: 16px;
 }
 
 .addBlur {
@@ -65,7 +65,7 @@
 
 .Column-style {
   display: inline-block;
-  height: 580px;
+  height: 1900px;
   width: 20%;
 }
 
@@ -272,7 +272,6 @@ html {
         transform: translateY(25px);
         opacity: 0;
     }
-
     to {
         transition: transform 500ms linear;
         opacity: 1;
@@ -285,7 +284,6 @@ html {
         transform: translateY(25px);
         opacity: 0;
     }
-
     to {
         transition: transform 500ms linear;
         opacity: 1;
@@ -298,7 +296,6 @@ html {
         transform: translateY(25px);
         opacity: 0;
     }
-
     to {
         transition: transform 500ms linear;
         opacity: 1;
@@ -311,7 +308,6 @@ html {
         transform: translateY(25px);
         opacity: 0;
     }
-
     to {
         transition: transform 500ms linear;
         opacity: 1;

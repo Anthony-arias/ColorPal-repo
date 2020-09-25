@@ -6,25 +6,30 @@ import axios from "axios";
 
 export default (props) => {
   let currentUser = props.currentUser.userID;
-  let [allUserPalettes, setAllUserPalettes] = useState([])
+  let [allUserPalettes, setAllUserPalettes] = useState([]);
   const [bgMode, setBgMode] = useState("bg-light");
   const [buttonMode, setButtonMode] = useState("b-light");
-  const [swatchMode, setSwatchMode] = useState("sw-light");
+  const [loaded, setLoaded] = useState(false);
   // add loaded useState
 
   // allUserPalettes contain an array of objects
   // one object contains the name of the palette the user entered...
-  // with five of the hex codes labeld hexValue1, hexValue2, ect..
+  // with five of the hex codes labeled hexValue1, hexValue2, ect..
   // see the browsers console for more info
-    // more info below
+  // more info below
   useEffect(() => {
-    axios.get("http://localhost:8000/api/"+currentUser+"/palettes").then((response) => {
-      allUserPalettes = response.data;
-      console.log(response.data)
-      //console.log(allUserPalettes)
-      //setLoaded(true) here
-    })
-      .catch(error => {console.log(error)})
+    axios
+      .get("http://localhost:8000/api/" + currentUser + "/palettes")
+      .then((response) => {
+        setAllUserPalettes((allUserPalettes = response.data));
+        // allUserPalettes = response.data;
+        // console.log(response.data[0]);
+        console.log(allUserPalettes);
+        setLoaded(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const Button = styled.button`
@@ -37,30 +42,35 @@ export default (props) => {
     font-size: 16px;
   `;
 
-  const Swatches = styled.div`
-    margin: auto;
-    margin-top: 100px;
-    width: 70%;
-    border-radius: 10px;
-    padding: 40px 0px;
+  const PalTitle = styled.h4`
+    font-family: "Varela Round";
+    text-align: left;
+    margin-left: 200px;
+    margin-bottom: 0;
+    margin-top: 30px;
   `;
 
-  const colors = [];
-  // colors should be array of the hex codes of the saved colors
+  const Swatches = styled.div`
+    margin: auto;
+    width: 70%;
+    border-radius: 10px;
+    padding: 20px 0px;
+    display: flex;
+    overflow-wrap: anywhere;
+    justify-content: space-between;
+  `;
 
   const toggleMode = (e) => {
     if (bgMode === "bg-light") {
       setBgMode("bg-dark");
       setButtonMode("b-dark");
-      setSwatchMode("sw-dark");
     } else {
       setBgMode("bg-light");
       setButtonMode("b-light");
-      setSwatchMode("sw-light");
     }
   };
-    //use allUserPalettes.map() to get the info to load
-    //like we've done before 
+  //use allUserPalettes.map() to get the info to load
+  //like we've done before
   return (
     <div id={bgMode}>
       <h1 className={buttonMode} id="favetitle">
@@ -71,12 +81,26 @@ export default (props) => {
           new palette
         </Button>
       </Link>
+
       <Button className={buttonMode} id="mode" onClick={toggleMode}>
         {String.fromCharCode(9728)}
       </Button>
-      <Swatches className={buttonMode}>
-        <ColorSwatch id={swatchMode} colors={colors}></ColorSwatch>
-      </Swatches>
+      {loaded && (
+        <div>
+          {allUserPalettes.map((color, index) => (
+            <div>
+              <PalTitle>Name: {color.paletteName}</PalTitle>
+              <Swatches className={buttonMode}>
+                <ColorSwatch colorHex={color.hexValue1} />
+                <ColorSwatch colorHex={color.hexValue2} />
+                <ColorSwatch colorHex={color.hexValue3} />
+                <ColorSwatch colorHex={color.hexValue4} />
+                <ColorSwatch colorHex={color.hexValue5} />
+              </Swatches>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
