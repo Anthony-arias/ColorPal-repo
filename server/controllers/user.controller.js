@@ -15,7 +15,7 @@ module.exports.register = (request, response) => {
                 .cookie("usertoken", userToken, myFirstSecret, {
                     httpOnly: true
                 })
-                .json({ msg: "success!"});
+                .json(user._id);
         })
         .catch(err => response.json(err));
 }
@@ -36,7 +36,7 @@ module.exports.login = async (request, response) => {
         .cookie("usertoken", userToken, myFirstSecret, {
             httpOnly: true
         })
-        .json({ msg: "success!" })
+        .json(user._id);
 }
 
 module.exports.logout = (request, response) => {
@@ -45,37 +45,28 @@ module.exports.logout = (request, response) => {
 }
 
 module.exports.createPalette = (request, response) => {
-    let userId = jwt.decode(request.cookies.usertoken).id
-    //if (!userId) response.json("error no user found");
-    User.findByIdAndUpdate(userId, { $push: { palettes: "5f6d6efd02966d1bb0ccf214" }})
-        .then(Users => { response.json(Users) })
-        .catch(err => response.json(err));
-        /*console.log(userId);
+    const { owner } = request.body;
+
+    console.log(typeof(owner))
+    console.log(request.body);
     Palette.create(request.body)
-        .then(newPalette => {
-            User.findOne({_id: userId}).populate()
-                .then(response => response.json(response))
-                .catch(error => response.json(error))
-            response.newPalette(newPalette);
-        })*/
-        //.catch(error => response.json(error))
+        .then(thisPalette => {
+            User.findByIdAndUpdate(owner, { $push: { palettes: thisPalette._id } })
+                .then(user => { response.json(user) })
+                .catch(error => response.json(error));
+        })
+        .catch(err => response.json(err));
 }
 
 module.exports.getAllUsers = (request, response) => {
-    //console.log(jwt.decode(request.cookies.usertoken).id);
-    //let userId = jwt.decode(request.cookies.usertoken).id
-    User.findOne({_id: "5f6aadcd921c0117ec52a6d8"}).populate("palettes")
+    User.find({})
         .then(Users => { response.json(Users) })
         .catch(err => response.json(err));
 }
 
-module.exports.test = (request, response) => {
-    console.log(jwt.decode(request.cookies.usertoken).id);
-    //console.log(request.cookies.usertoken)
-}
-
 module.exports.palettes = (request, response) => {
-    Palette.find({})
-        .then(Palettes => { response.json(Palettes) })
+    //console.log(request.params.id);
+    User.findById(request.params.id).populate("palettes")
+        .then(Palettes => { response.json(Palettes.palettes) })
         .catch(err => response.json(err));
 }

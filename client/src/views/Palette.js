@@ -10,6 +10,7 @@ export default (props) => {
   // each hex value is now directly stored in the array, use currentColors[index] to get value
   let [currentColors, setCurrentColors] = useState([]);
   let [loaded, setLoaded] = useState(false);
+  const [needReload, setNeedReload] = useState(false);
 
   const [isHiddenOne, setIsHiddenOne] = useState(true);
   const [isHiddenTwo, setIsHiddenTwo] = useState(true);
@@ -70,19 +71,25 @@ export default (props) => {
 
   // the api is pretty slow, nothing to do on our part
   useEffect(() => {
+    
     axios.get(proxyurl + url).then((response) => {
       setCurrentColors((currentColors = response.data[0].colors));
       setUpColumnAnimation();
+      if(currentColors.length<5) throw "color is less than 5";
       setLoaded(true);
-    });
-  }, [props.generate]);
+    })
+      .catch(error => {needReload? setNeedReload(false) : setNeedReload(true)})
+  }, [props.generate, needReload]);
 
   const setUpLocked = () => {
+    let fullPalette = [];
     for (var i in currentColors) {
       if (lockedColors[i] && currentColors[i] != "") {
         currentColors[i] = lockedColors[i];
       }
+      fullPalette[i] = currentColors[i];
     }
+    props.handleCurrentPalette(fullPalette);
   };
   //moved styling to app.css
   return (
